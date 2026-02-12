@@ -28,6 +28,16 @@ component "cluster" {
   }
 }
 
+component "auth" {
+  source = "./modules/app_auth"
+  providers = {
+    aws = provider.aws.main
+  }
+  inputs = {
+    cluster_name = component.cluster.cluster_name
+  }
+}
+
 component "app" {
   source = "./modules/app"
   providers = {
