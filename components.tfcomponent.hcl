@@ -23,8 +23,8 @@ component "cluster" {
   inputs = {
     cluster_name        = var.cluster_name
     kubernetes_version  = var.kubernetes_version
-    vpc_id              = component.network.outputs.vpc_id
-    subnet_ids          = component.network.outputs.public_subnet_ids
+    vpc_id              = component.network.vpc_id
+    subnet_ids          = component.network.public_subnet_ids
   }
 }
 
