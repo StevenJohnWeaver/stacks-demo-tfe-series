@@ -26,15 +26,15 @@ module "eks" {
 #   name = module.eks.cluster_name
 # }
 
-output "cluster_url" {
-  value = data.aws_eks_cluster.this.endpoint
-}
+# output "cluster_url" {
+#   value = data.aws_eks_cluster.this.endpoint
+# }
 
-output "cluster_ca" {
-  value = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)
-}
+# output "cluster_ca" {
+#   value = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)
+# }
 
-output "cluster_token" {
-  value     = data.aws_eks_cluster_auth.this.token
-  sensitive = true
-}
+# output "cluster_token" {
+#   value     = data.aws_eks_cluster_auth.this.token
+#   sensitive = true
+# }
