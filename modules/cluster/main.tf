@@ -18,6 +18,15 @@ module "eks" {
   endpoint_public_access  = true
   endpoint_private_access = true  # optional, but recommended
 
+  eks_managed_node_groups = {
+    demo = {
+      desired_size   = 1
+      max_size       = 1
+      min_size       = 1
+      instance_types = ["t3.small"]
+    }
+  }
+
   tags = { demo = "stacks" }
 }
 
