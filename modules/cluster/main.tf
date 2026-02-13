@@ -52,12 +52,6 @@ module "eks" {
   # AWS Auth (critical!!)
   ############################################
   manage_aws_auth = true
-  
-  ############################################
-  # Cluster endpoint (optional but recommended)
-  ############################################
-  cluster_endpoint_public_access  = true
-  cluster_endpoint_private_access = true
 
   tags = { demo = "stacks" }
 }
