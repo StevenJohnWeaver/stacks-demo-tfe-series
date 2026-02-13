@@ -6,8 +6,11 @@ terraform {
 }
 
 module "eks" {
-  source  = "terraform-aws-modules/eks/aws"
-  version = "21.11.0"
+
+  source = "github.com/terraform-aws-modules/terraform-aws-eks?ref=v21.11.0"
+
+  # source  = "terraform-aws-modules/eks/aws"
+  # version = "21.11.0"
 
   cluster_name                       = var.cluster_name
   kubernetes_version                 = var.kubernetes_version
