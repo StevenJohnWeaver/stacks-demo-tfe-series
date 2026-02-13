@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    aws    = { source = "hashicorp/aws",    version = "~> 5.0" }
+    aws    = { source = "hashicorp/aws",    version = "~> 6.0" }
     random = { source = "hashicorp/random", version = "~> 3.5" }
   }
 }
@@ -9,14 +9,18 @@ module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 21.0"
 
-  name                               = var.cluster_name
+  cluster_name                       = var.cluster_name
   kubernetes_version                 = var.kubernetes_version
   subnet_ids                         = var.subnet_ids
   vpc_id                             = var.vpc_id
-  enable_cluster_creator_admin_permissions = true
 
-  endpoint_public_access  = true
-  endpoint_private_access = true  # optional, but recommended
+  # Admin + endpoint access
+  enable_cluster_creator_admin_permissions = true
+  cluster_endpoint_public_access  = true
+  cluster_endpoint_private_access = true
+
+  # endpoint_public_access  = true
+  # endpoint_private_access = true  # optional, but recommended
 
   eks_managed_node_groups = {
     demo = {
@@ -48,19 +52,6 @@ module "eks" {
   # AWS Auth (critical!!)
   ############################################
   manage_aws_auth = true
-  
-  # If Stacks controls the node role:
-  # (If the module creates the node IAM role, it will auto-map it)
-  aws_auth_roles = [
-    {
-      rolearn  = module.eks.node_iam_role_arn
-      username = "system:node:{{EC2PrivateDNSName}}"
-      groups   = [
-        "system:bootstrappers",
-        "system:nodes"
-      ]
-    }
-  ]
   
   ############################################
   # Cluster endpoint (optional but recommended)
