@@ -26,27 +26,47 @@ module "eks" {
       instance_types = ["t3.small"]
     }
   }
+  ############################################
+  # EKS Core Addons (required)
+  ############################################
+  cluster_addons = {
+    vpc-cni = {
+      most_recent       = true
+      resolve_conflicts = "OVERWRITE"
+    }
+    kube-proxy = {
+      most_recent       = true
+      resolve_conflicts = "OVERWRITE"
+    }
+    coredns = {
+      most_recent       = true
+      resolve_conflicts = "OVERWRITE"
+    }
+  }
+  
+  ############################################
+  # AWS Auth (critical!!)
+  ############################################
+  manage_aws_auth = true
+  
+  # If Stacks controls the node role:
+  # (If the module creates the node IAM role, it will auto-map it)
+  aws_auth_roles = [
+    {
+      rolearn  = module.eks.node_iam_role_arn
+      username = "system:node:{{EC2PrivateDNSName}}"
+      groups   = [
+        "system:bootstrappers",
+        "system:nodes"
+      ]
+    }
+  ]
+  
+  ############################################
+  # Cluster endpoint (optional but recommended)
+  ############################################
+  cluster_endpoint_public_access  = true
+  cluster_endpoint_private_access = true
 
   tags = { demo = "stacks" }
 }
-
-# data "aws_eks_cluster" "this" {
-#   name = module.eks.cluster_name
-# }
-
-# data "aws_eks_cluster_auth" "this" {
-#   name = module.eks.cluster_name
-# }
-
-# output "cluster_url" {
-#   value = data.aws_eks_cluster.this.endpoint
-# }
-
-# output "cluster_ca" {
-#   value = base64decode(data.aws_eks_cluster.this.certificate_authority[0].data)
-# }
-
-# output "cluster_token" {
-#   value     = data.aws_eks_cluster_auth.this.token
-#   sensitive = true
-# }
