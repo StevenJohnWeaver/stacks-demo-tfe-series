@@ -9,7 +9,7 @@ deployment "development" {
     role_arn           = "arn:aws:iam::314146291426:role/stacks-steve-weaver-demo-org-Stacks"
     identity_token     = identity_token.aws.jwt
     default_tags       = { environment = "dev", owner = "platform" }
-    cluster_name       = "stacks-demo-dev-05"
+    cluster_name       = "stacks-demo-dev-06"
     kubernetes_version = "1.30"
     vpc_cidr           = "10.100.0.0/16"
   }
