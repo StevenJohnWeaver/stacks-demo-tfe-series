@@ -26,7 +26,7 @@ module "eks" {
   # Addons MUST be inside the module so they install after the control plane
   # but BEFORE node groups. EKS module v21 sets bootstrap_self_managed_addons = false,
   # so the VPC CNI is NOT auto-installed by AWS — without it, nodes can't register.
-  cluster_addons = {
+  addons = {
     vpc-cni = {
       resolve_conflicts_on_create = "OVERWRITE"
       resolve_conflicts_on_update = "OVERWRITE"
