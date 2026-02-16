@@ -1,6 +1,6 @@
 terraform {
   required_providers {
-    aws = { source = "hashicorp/aws",    version = "~> 6.0" }
+    aws = { source = "hashicorp/aws",    version = "~> 6.28" }
     random = { source = "hashicorp/random", version = "~> 3.5" }
   }
 }
@@ -25,6 +25,7 @@ module "eks" {
 
   eks_managed_node_groups = {
     demo = {
+      ami_type       = "AL2_x86_64"
       desired_size   = 1
       max_size       = 1
       min_size       = 1
