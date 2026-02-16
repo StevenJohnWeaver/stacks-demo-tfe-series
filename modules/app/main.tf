@@ -15,7 +15,7 @@ resource "kubernetes_deployment_v1" "nginx" {
     labels    = { app = "nginx" }
   }
   spec {
-    replicas = 3
+    replicas = 2
     selector { match_labels = { app = "nginx" } }
     template {
       metadata { labels = { app = "nginx" } }
