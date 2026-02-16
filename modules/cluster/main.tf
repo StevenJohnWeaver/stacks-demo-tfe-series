@@ -28,10 +28,12 @@ module "eks" {
   # so the VPC CNI is NOT auto-installed by AWS — without it, nodes can't register.
   addons = {
     vpc-cni = {
+      before_compute              = true
       resolve_conflicts_on_create = "OVERWRITE"
       resolve_conflicts_on_update = "OVERWRITE"
     }
     kube-proxy = {
+      before_compute              = true
       resolve_conflicts_on_create = "OVERWRITE"
       resolve_conflicts_on_update = "OVERWRITE"
     }
